@@ -7,9 +7,10 @@ const Apps = () => {
   const { datas, loading } = useCustomData();
   const [search, setSearch] = useState("");
   const term = search.trim().toLowerCase();
-  const filterData = term
+  let filterData = term
     ? datas.filter((data) => data.title.toLowerCase().includes(term))
     : datas;
+  console.log(loading);
   console.log(filterData);
 
   return (
@@ -50,16 +51,13 @@ const Apps = () => {
               />
             </label>
           </div>
-          {filterData.length === 0 ? (
-            <h1 className="text-2xl text-center">No App Found</h1>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-10">
-              {filterData.map((data) => (
-                <Card key={data.id} data={data} />
-              ))}
-            </div>
-          )}
-          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-10">
+            {filterData.length === 0 ? (
+              <h1 className="text-2xl">No App Found</h1>
+            ) : (
+              filterData.map((data) => <Card key={data.id} data={data} />)
+            )}
+          </div>
         </div>
       )}
     </>
