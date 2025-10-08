@@ -1,8 +1,30 @@
-import React from "react";
-import downloadImg from "../assets/icon-downloads.png";
-import ratingImg from '../assets/icon-ratings.png'
+import React, { useEffect, useState } from "react";
+import InstallApps from "./InstallApps";
 
 const Installation = () => {
+  const [sort, setSort] = useState("Sort by downloads");
+  const [installedList, setInstalledList] = useState([]);
+  useEffect(() => {
+    const savedList = JSON.parse(localStorage.getItem("installed"));
+    if (savedList) setInstalledList(savedList);
+  }, []);
+
+  const handleSort = (() => {
+    if (sort === "asc") {
+      return [...installedList].sort((a, b) => b.downloads - a.downloads);
+    } else if (sort === "dsc") {
+      return [...installedList].sort((a, b) => a.downloads - b.downloads);
+    } else {
+      return installedList;
+    }
+  })();
+
+  const handleRemove = (id) => {
+    const dataList = JSON.parse(localStorage.getItem("installed"));
+    const updateList = dataList.filter(d => d.id !== id);
+    setInstalledList(updateList)
+    localStorage.setItem("installed",JSON.stringify(updateList))
+  }
 
   return (
     <div className="container mx-auto px-5 my-10">
@@ -11,38 +33,21 @@ const Installation = () => {
         Explore All Trending Apps on the Market developed by us
       </p>
       <div className="mt-10 flex items-center justify-between">
-        <p>(132) Apps Found</p>
-        <fieldset className="fieldset">
-          <select defaultValue="Sort By Size" className="select">
-            <option disabled={true}>Sort By Size</option>
-
-            <option>Accending</option>
-            <option>Deccending</option>
-          </select>
-        </fieldset>
+        <p>({installedList.length}) Apps Found</p>
+        <select
+          defaultValue="Sort by downloads"
+          className="select"
+          onChange={(e) => setSort(e.target.value)}
+        >
+          <option disabled={true}>Sort by downloads</option>
+          <option value="asc">Ascending</option>
+          <option value="dsc">Descending</option>
+        </select>
       </div>
       <div className="flex flex-col gap-4 mt-4">
-        <div className="bg-white p-4 rounded-sm flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="bg-red-400 w-20 rounded-lg"></div>
-            <div className="flex flex-col gap-2">
-              <h1 className="text-xl font-medium">
-                Forest: Focus for Productivity
-              </h1>
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <img src={downloadImg} alt="" className="w-4"/>
-                  <p>downloads</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <img src={ratingImg} alt="" className="w-4"/>
-                  <p>ratings</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button className="btn py-3 px-4 rounded-sm bg-[#00d390] text-white">Uninstall</button>
-        </div>
+        {handleSort.map((apps) => (
+          <InstallApps key={apps.id} data={apps} handleRemove={handleRemove}/>
+        ))}
       </div>
     </div>
   );

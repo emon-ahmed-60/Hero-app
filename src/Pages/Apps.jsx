@@ -10,8 +10,6 @@ const Apps = () => {
   let filterData = term
     ? datas.filter((data) => data.title.toLowerCase().includes(term))
     : datas;
-  console.log(loading);
-  console.log(filterData);
 
   return (
     <>

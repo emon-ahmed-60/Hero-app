@@ -4,6 +4,7 @@ import { Outlet } from 'react-router';
 import Footer from '../Components/Footer';
 import useCustomData from '../Hooks/useCustomData';
 import LoadingSpinner from '../Components/LoadingSpinner';
+import { ToastContainer } from 'react-toastify';
 
 const RootLayout = () => {
     const {loading} = useCustomData();
@@ -14,6 +15,7 @@ const RootLayout = () => {
                 {loading ? <LoadingSpinner/> : <Outlet/>}
             </div>
             <Footer/>
+            <ToastContainer/>
         </div>
     );
 };
