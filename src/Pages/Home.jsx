@@ -1,32 +1,28 @@
 import React from "react";
-import heroImg from '../assets/hero.png'
 import Banner from "../Components/Banner";
+import useCustomData from "../Hooks/useCustomData";
+import States from "../Components/States";
+import Card from "./Card";
+import { Link } from "react-router";
 const Home = () => {
+  const {datas} = useCustomData();
+  const sliceData = datas.slice(0,8);
+
   return (
     <div className="py-10">
       <Banner/>
-      <img src={heroImg} alt="BannerImg" className="mx-auto mt-10"/>
-      <div className="bg-linear-to-br from-[#632ee3] to-[#9f62f2] py-5 lg:p-20 text-white">
-       <div className="container mx-auto px-5">
-         <h2 className="text-center font-bold text-3xl">Trusted by Millions, Built for You</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10">
-          <div className="flex flex-col items-center">
-            <p className="opacity-80">Total Downloads</p>
-              <h3 className="font-bold text-4xl my-4">29.6M</h3>
-              <p className="opacity-80">21% more than last month</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <p className="opacity-80">Total Reviews</p>
-              <h3 className="font-bold text-4xl my-4">906K</h3>
-              <p className="opacity-80">46% more than last month</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <p className="opacity-80">Active Apps</p>
-              <h3 className="font-bold text-4xl my-4">132+</h3>
-              <p className="opacity-80">31 more will Launch</p>
-          </div>
-        </div>
-       </div>
+      <States/>
+      <div className="container mx-auto px-5">
+        <h1 className="font-bold text-5xl text-center mb-4 mt-6">Trending Apps</h1>
+      <p className="text-xl text-[#627382] text-center">Explore All Trending Apps on the Market developed by us</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-10">
+        {
+          sliceData.map(data => <Card key={data.id} data={data}/>)
+        }
+      </div>
+      <div className="text-center">
+        <Link to="/apps" className="btn bg-linear-to-br from-[#632ee3] to-[#9f62f2] text-white">Show All</Link>
+      </div>
       </div>
     </div>
   );
