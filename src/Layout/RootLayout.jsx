@@ -16,7 +16,7 @@ const RootLayout = () => {
             </div>
             <Footer/>
             <ToastContainer/>
-        </div>
+        </div> 
     );
 };
 
