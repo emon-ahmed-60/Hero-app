@@ -5,7 +5,8 @@ import ratingImg from '../assets/icon-ratings.png'
 const InstallApps = ({data,handleRemove}) => {
     const {image,title,downloads,ratingAvg,id} = data
     return (
-        <div className="bg-white p-4 rounded-sm flex flex-col md:flex-row items-center justify-between">
+     
+          <div className="bg-white p-4 rounded-sm flex flex-col md:flex-row items-center justify-between">
           <div className="flex items-center gap-4">
             <img src={image} alt="" className='w-20 rounded-lg'/>
             <div className="flex flex-col gap-2">
@@ -26,6 +27,7 @@ const InstallApps = ({data,handleRemove}) => {
           </div>
           <button onClick={() => handleRemove(id)} className="btn py-3 px-4 rounded-sm bg-[#00d390] text-white mt-2 md:mt-0">Uninstall</button>
         </div>
+        
     );
 };
 

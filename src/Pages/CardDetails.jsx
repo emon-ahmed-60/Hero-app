@@ -7,13 +7,14 @@ import reviewImg from "../assets/icon-review.png";
 import RatingChart from "../Components/RatingChart";
 import { toast } from "react-toastify";
 import NotFound from "./NotFound";
+import LoadingSpinner from "../Components/LoadingSpinner";
 const CardDetails = () => {
 
   const { id } = useParams();
   const { datas, loading } = useCustomData();
   const data = datas.find((data) => String(data.id) === id);
   const [disabled, setDisabled] = useState(false);
-  if (loading) return <p>Loading....</p>;
+  if (loading) return <LoadingSpinner/>;
   const {
     image,
     title,
@@ -44,7 +45,7 @@ const CardDetails = () => {
   return (
     <div className="container mx-auto px-5 my-10">
       {
-        title ? <>
+        data ? <>
         <div className="flex flex-col lg:flex-row items-center gap-5 border-b border-[#00193120] pb-10">
         <img src={image} alt="" className="h-68 object-cover" />
 

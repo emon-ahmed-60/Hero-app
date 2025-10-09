@@ -4,12 +4,15 @@ import useCustomData from "../Hooks/useCustomData";
 import States from "../Components/States";
 import Card from "./Card";
 import { Link } from "react-router";
+import LoadingSpinner from "../Components/LoadingSpinner";
 const Home = () => {
-  const {datas} = useCustomData();
+  const {datas,loading} = useCustomData();
   const sliceData = datas.slice(0,8);
 
   return (
-    <div className="py-10">
+    <>
+    {
+      loading ? <LoadingSpinner/> :  <div className="py-10">
       <Banner/>
       <States/>
       <div className="container mx-auto px-5">
@@ -25,6 +28,8 @@ const Home = () => {
       </div>
       </div>
     </div>
+    }
+    </>
   );
 };
 

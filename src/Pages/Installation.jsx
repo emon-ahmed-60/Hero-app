@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import InstallApps from "./InstallApps";
+import useCustomData from "../Hooks/useCustomData";
+import LoadingSpinner from "../Components/LoadingSpinner";
 
 const Installation = () => {
+  const {loading} = useCustomData();
   const [sort, setSort] = useState("Sort by downloads");
   const [installedList, setInstalledList] = useState([]);
   useEffect(() => {
@@ -27,7 +30,9 @@ const Installation = () => {
   }
 
   return (
-    <div className="container mx-auto px-5 my-10">
+    <>
+    {
+      loading ? <LoadingSpinner/> : <div className="container mx-auto px-5 my-10">
       <h1 className="text-center font-bold text-4xl">Your Installed Apps</h1>
       <p className="text-xl text-[#627382] text-center mt-4">
         Explore All Trending Apps on the Market developed by us
@@ -50,6 +55,8 @@ const Installation = () => {
         ))}
       </div>
     </div>
+    }
+    </>
   );
 };
 
